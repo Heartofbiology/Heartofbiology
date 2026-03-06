@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -116,6 +116,47 @@
         #cellWrapper { width: 95vw; }
         .popup { width: 90vw; }
     }
+    /* ABOUT ME SECTION */
+
+.about-container{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:15px;
+text-align:center;
+}
+
+.about-container img{
+width:150px;
+height:150px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #0ff;
+box-shadow:0 0 15px rgba(0,200,255,0.8);
+}
+
+/* CERTIFICATE GALLERY */
+
+.certificates{
+display:flex;
+flex-direction:column;
+gap:15px;
+margin-top:10px;
+}
+
+.certificates img{
+width:100%;
+border-radius:8px;
+border:2px solid #0ff;
+box-shadow:0 0 10px rgba(0,200,255,0.6);
+transition:transform .3s;
+cursor:pointer;
+}
+
+.certificates img:hover{
+transform:scale(1.05);
+}
+
 </style>
 </head>
 <body>
@@ -139,11 +180,33 @@
     </div>
 
     <!-- popups -->
-    <div class="popup" id="popup-nucleus">
-        <div class="close">&times;</div>
-        <h2>About Me</h2>
-        <p>Tell your story, background, and passions here.</p>
-    </div>
+ <div class="popup" id="popup-nucleus">
+<div class="close">&times;</div>
+<h2>About Me</h2>
+
+<div class="about-container">
+
+<img src="kavin.jpg" alt="Kavin Kumar">
+
+<p>
+<b>Kavin Kumar</b> – Microbiology Professional with expertise in 
+Bioinformatics, Industrial Microbial Testing, and Molecular Techniques.
+</p>
+
+<p>
+Passionate about biotechnology research, microbial respiration analysis,
+and developing innovative bio-based technologies.
+</p>
+
+<p>
+Awards: Best Oral Presenter | Best Product Award  
+Publications: 3 Research Publications
+</p>
+
+</div>
+
+</div>
+
     <div class="popup" id="popup-mitochondria">
         <div class="close">&times;</div>
         <h2>Achievements</h2>
