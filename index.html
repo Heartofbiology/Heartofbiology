@@ -68,24 +68,26 @@
     #lysosome { width: 12%; height: 12%; top: 63%; left: 30%; }
 
     /* popups */
-    .popup {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(.8);
-        width: 80vw;
-        max-width: 500px;
-        padding: 20px;
-        background: rgba(0, 0, 0, .6);
-        border: 2px solid #0ff;
-        backdrop-filter: blur(10px);
-        border-radius: 12px;
-        box-shadow: 0 0 20px rgba(0, 200, 255, .7);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .4s, transform .4s;
-        z-index: 20;
-    }
+.popup {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) scale(.8);
+width: 80vw;
+max-width: 500px;
+max-height: 80vh;   /* limits height */
+overflow-y: auto;   /* enables scrolling */
+padding: 20px;
+background: rgba(0, 0, 0, .6);
+border: 2px solid #0ff;
+backdrop-filter: blur(10px);
+border-radius: 12px;
+box-shadow: 0 0 20px rgba(0, 200, 255, .7);
+opacity: 0;
+pointer-events: none;
+transition: opacity .4s, transform .4s;
+z-index: 20;
+}
     .popup.active {
         opacity: 1;
         pointer-events: auto;
