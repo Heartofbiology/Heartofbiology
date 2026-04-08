@@ -1,642 +1,85 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Photo-Portfolio</title>
-<style>
-    /* reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background: #000;
-        color: #fff;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    /* containers */
-    #intro, #main { position: absolute; inset: 0; }
-    #intro video { width: 100%; height: 100%; object-fit: cover; }
-    #main { display: none; perspective: 1200px; }
-
-    /* particles */
-    #particles { position: absolute; inset: 0; z-index: 1; }
-
-    /* cell image */
-    #cellWrapper {
-        position: relative;
-        z-index: 2;
-        width: 70vw;
-        max-width: 600px;
-        aspect-ratio: 1 / 1;
-        margin: auto;
-        top: 50%;
-        transform: translateY(-50%);
-        transition: transform .6s;
-    }
-
-    #cellWrapper:hover {
-        transform: translateY(-50%) scale(1.01);
-    }
-
-    #cellImage {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        border-radius: 50%;
-        filter: drop-shadow(0 0 20px rgba(0, 200, 255, .6));
-    }
-
-    /* hotspots */
-    .hotspot {
-        position: absolute;
-        cursor: pointer;
-        transition: box-shadow .3s;
-        border-radius: 50%;
-        background: transparent;
-    }
-    .hotspot:hover { box-shadow: 0 0 15px 5px rgba(0, 200, 255, .7); }
-
-    /* positions (adjust to match your image) */
-    #nucleus { width: 22%; height: 22%; top: 38%; left: 39%; }
-    #mitochondria { width: 16%; height: 14%; top: 48%; left: 18%; }
-    #golgi { width: 22%; height: 14%; top: 58%; left: 58%; }
-    #ribosomes { width: 28%; height: 22%; top: 22%; left: 52%; }
-    #lysosome { width: 12%; height: 12%; top: 63%; left: 30%; }
-
-    /* popups */
-.popup {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%) scale(.8);
-width: 80vw;
-max-width: 500px;
-max-height: 80vh;   /* limits height */
-overflow-y: auto;   /* enables scrolling */
-padding: 20px;
-background: rgba(0, 0, 0, .6);
-border: 2px solid #0ff;
-backdrop-filter: blur(10px);
-border-radius: 12px;
-box-shadow: 0 0 20px rgba(0, 200, 255, .7);
-opacity: 0;
-pointer-events: none;
-transition: opacity .4s, transform .4s;
-z-index: 20;
-}
-    .popup.active {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    .popup h2 { margin-bottom: 10px; color: #0ff; font-size: 1.4em; }
-    .popup .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
-        background: #000;
-        border: 1px solid #0ff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #0ff;
-        font-weight: bold;
-        transition: background .2s, color .2s;
-    }
-    .popup .close:hover { background: #0ff; color: #000; }
-
-    /* responsive */
-    @media (max-width: 600px) {
-        #cellWrapper { width: 95vw; }
-        .popup { width: 90vw; }
-    }
-    /* ABOUT ME SECTION */
-
-.about-container{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:15px;
-text-align:center;
-}
-
-.about-container img{
-width:150px;
-height:150px;
-border-radius:50%;
-object-fit:cover;
-border:3px solid #0ff;
-box-shadow:0 0 15px rgba(0,200,255,0.8);
-}
-
-/* CERTIFICATE GALLERY */
-
-.certificates{
-display:flex;
-flex-direction:column;
-gap:15px;
-margin-top:10px;
-}
-
-.certificates img{
-width:100%;
-border-radius:8px;
-border:2px solid #0ff;
-box-shadow:0 0 10px rgba(0,200,255,0.6);
-transition:transform .3s;
-cursor:pointer;
-}
-
-.certificates img:hover{
-transform:scale(1.05);
-}
-/* MILESTONE TIMELINE */
-
-.timeline{
-position:relative;
-margin-top:20px;
-padding-left:30px;
-}
-
-.timeline::before{
-content:"";
-position:absolute;
-left:10px;
-top:0;
-bottom:0;
-width:3px;
-background:#0ff;
-}
-
-.milestone{
-position:relative;
-margin-bottom:20px;
-padding:10px 15px;
-background:rgba(0,0,0,0.5);
-border:1px solid #0ff;
-border-radius:8px;
-box-shadow:0 0 10px rgba(0,200,255,0.5);
-}
-
-.milestone::before{
-content:"";
-position:absolute;
-left:-22px;
-top:15px;
-width:12px;
-height:12px;
-background:#0ff;
-border-radius:50%;
-box-shadow:0 0 8px rgba(0,255,255,0.8);
-}
-
-.milestone h3{
-color:#0ff;
-font-size:16px;
-margin-bottom:5px;
-}
-.certificate-gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-gap:15px;
-margin-top:20px;
-max-height:420px;
-overflow-y:auto;
-}
-
-.certificate-gallery img{
-width:100%;
-border-radius:8px;
-border:2px solid #0ff;
-box-shadow:0 0 10px rgba(0,200,255,0.6);
-cursor:pointer;
-transition:transform .3s;
-}
-
-.certificate-gallery img:hover{
-transform:scale(1.05);
-}
-
-/* FULLSCREEN VIEW */
-
-.fullscreen-view{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.9);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:999;
-}
-
-.fullscreen-view img{
-max-width:90%;
-max-height:90%;
-border:3px solid #0ff;
-border-radius:10px;
-box-shadow:0 0 25px #0ff;
-}
-
-/* CERTIFICATE GALLERY */
-
-.certificate-gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-gap:15px;
-margin-top:20px;
-max-height:420px;
-overflow-y:auto;
-}
-
-.certificate-gallery img{
-width:100%;
-border-radius:8px;
-border:2px solid #0ff;
-box-shadow:0 0 10px rgba(0,200,255,0.6);
-cursor:pointer;
-transition:transform .3s;
-}
-
-.certificate-gallery img:hover{
-transform:scale(1.05);
-}
-
-/* FULL SCREEN VIEW */
-
-.fullscreen-view{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.9);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:999;
-}
-
-.fullscreen-view img{
-max-width:90%;
-max-height:90%;
-border:3px solid #0ff;
-border-radius:10px;
-box-shadow:0 0 25px #0ff;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Chandhana Portfolio</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- intro video -->
-<div id="intro">
-    <video id="bgVideo" src="2026-02-28T15-11-58_cinematic_horizontal_watermarked.mp4" autoplay muted playsinline></video>
-</div>
+<!-- NAVBAR -->
+<nav>
+    <h2>Chandhana</h2>
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
 
-<!-- main view -->
-<div id="main">
-    <canvas id="particles"></canvas>
+<!-- HERO -->
+<section class="hero">
+    <h1>Hi, I'm Chandhana 👋</h1>
+    <p>Biotechnology Student | Research Enthusiast</p>
+</section>
 
-    <div id="cellWrapper">
-        <img id="cellImage" src="ChatGPT Image Feb 28, 2026, 08_47_22 PM.png" alt="Animal Cell">
-        <div class="hotspot" id="nucleus" data-target="nucleus"></div>
-        <div class="hotspot" id="mitochondria" data-target="mitochondria"></div>
-        <div class="hotspot" id="golgi" data-target="golgi"></div>
-        <div class="hotspot" id="ribosomes" data-target="ribosomes"></div>
-        <div class="hotspot" id="lysosome" data-target="lysosome"></div>
+<!-- ABOUT -->
+<section id="about">
+    <h2>About Me</h2>
+    <p>
+        I am a biotechnology student passionate about microbiology, research, and innovation.
+        I have experience in scientific projects, data analysis, and laboratory techniques.
+    </p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+    <h2>Skills</h2>
+    <div class="card-container">
+        <div class="card">Microbiology</div>
+        <div class="card">Excel & Data Analysis</div>
+        <div class="card">Research Writing</div>
+        <div class="card">Lab Techniques</div>
     </div>
+</section>
 
-    <!-- popups -->
- <div class="popup" id="popup-nucleus">
-<div class="close">&times;</div>
-<h2>About Me</h2>
-
-<div class="about-container">
-
-<img src="kavin.jpeg" alt="Kavin Kumar">
-
-<p>
-<b>Kavin Kumar Subramaniyan </b> – M.Sc.Hons Microbiology,Microbiology Professional | Expertise in Bioinformatics,Clinical Diagnostics, Industrial Microbial Testing, and Molecular Techniques |
- Research Publications | Scientific Awards-Best oral presentations and Best products
-</p>
-
-<p>
-Passionate about multi disciplinary research, microbial respiration analysis,
-and developing innovative bio-based technologies.
-</p>
-
-<p>
-Contact:
-</p>
-<p>phone:9345504141</p>
-<p>Email:heartofbiology22@gmail.com</p>
-
-</div>
-
-</div>
-
-<div class="popup" id="popup-mitochondria">
-<div class="close">&times;</div>
-
-<h2>Achievements</h2>
-
-<div class="timeline">
-
-<div class="milestone">
-<h3>Academic Qualification</h3>
-<p>
-Completed <b>B.Sc. Microbiology</b> at Dr. N.G.P. Arts and Science College, Coimbatore with First Class CGPA.
-Currently pursuing <b>M.Sc. (Hons.) Microbiology</b> at Lovely Professional University, Punjab.
-</p>
-</div>
-
-<div class="milestone">
-<h3>Presentation Awards</h3>
-<p>
-Received <b>3 Best Oral Presentation Awards</b> and <b>2 Best Poster Presentation Awards</b> at various scientific conferences.
-</p>
-</div>
-
-<div class="milestone">
-<h3>Leadership & Discipline</h3>
-<p>
-Served as <b>PC – NCC Army Wing</b> during school education (2014–2020), demonstrating leadership, discipline, and teamwork.
-</p>
-</div>
-
-<div class="milestone">
-<h3>Internship Experience</h3>
-<p>
-Completed internships at:
-<br>• Themis International Pvt. Ltd. (Biotechnology)
-<br>• KMCH Hospital, Tamil Nadu
-<br>• ICAR Sugarcane Breeding Institute, Tamil Nadu
-</p>
-</div>
-
-<div class="milestone">
-<h3>Research Publications</h3>
-<p>
-Published <b>3 research papers</b> in reputed international journals and <b>2 review publications</b>.
-</p>
-</div>
-
-<div class="milestone">
-<h3>Innovative Projects</h3>
-<p>
-Worked on multidisciplinary projects including:
-<br>• Rapid Soil Respiration Analysis
-<br>• Rapid NPK Testing System with Android Application
-<br>
-Received the <b>Best Product Award</b> for this innovation.
-</p>
-</div>
-
-<div class="milestone">
-<h3>Scientific Discoveries</h3>
-<p>
-Developed and researched innovative concepts including:
-<br>• E. coli sensitive cardboard biosensor
-<br>• Tridax based wound healing ointment
-<br>• Banana leaf residue medium for Spirulina cultivation
-<br>• Biofilm pack for prawn recovery
-</p>
-</div>
-
-<div class="milestone">
-<h3>Scientific Participation</h3>
-<p>
-Participated in <b>18 scientific conferences</b> and <b>8 hackathons / idea pitching competitions</b>.
-</p>
-</div>
-
-<div class="milestone">
-<h3>Personal Strengths</h3>
-<p>
-Quick learner with strong communication skills, public speaking ability, leadership qualities, and multidisciplinary research interest.
-</p>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-  <div class="popup" id="popup-golgi">
-<div class="close">&times;</div>
-<h2>Research Publications</h2>
-
-<div class="publications">
-
-<div class="pub-card">
-<h3>Publication 1: PREPARATION OF TOPICAL WOUND HEALING OINTMENT USING TRIDAX PROCUMBENS</h3>
-<p>The study based on to preparation of ointment using the extract of Tridax procumbens.</p>
-<a href="https://heartofbiology.blogspot.com" target="_blank">
-Read Full Article
-</a>
-</div>
-
-<div class="pub-card">
-<h3>Publication 2: HERBAL OINTMENT WITH ANTIBACTERIAL PROPERTY FROM PROSOPIS JULIFLORA LEAF</h3>
-<p>Prosopis juliflora plant, such as the bark, leaves, and pods, have been used to treat ailments like diarrhea, skin conditions, and respiratory issues.</p>
-<a href="https://heartofbiology.blogspot.com" target="_blank">
-Read Full Article
-</a>
-</div>
-
-<div class="pub-card">
-<h3>Publication 3: PREPRATION OF MEDIA USING EXTRACT OF MUSA ACUMINATA FOR CULTIVATION OF SPIRULINA</h3>
-<p>The idealization was to produce a cultivation medium for Spirulina using an extract of Musa acuminata. </p>
-<a href="https://heartofbiology.blogspot.com" target="_blank">
-Read Full Article
-</a>
-</div>
-
-</div>
-
-</div>
-
+<!-- PROJECTS -->
+<section id="projects">
+    <h2>Projects</h2>
+    <div class="card-container">
+        <div class="card">
+            Bio-efficacy of Neem Extract Against Bihar Hairy Caterpillar
+        </div>
+        <div class="card">
+            Soil Bioactivity Analyzer using Respiration Pattern
+        </div>
     </div>
-    <div class="popup" id="popup-ribosomes">
-<div class="close">&times;</div>
+</section>
 
-<h2>Scientific Skills</h2>
-
-<div class="skills-container">
-
-<div class="skill-category">
-<h3>Microbiology Techniques</h3>
-<ul>
-<li>Microbial Culture Techniques</li>
-<li>Isolation & Identification of Microorganisms</li>
-<li>Biofilm Analysis</li>
-<li>Spirulina Cultivation</li>
-</ul>
-</div>
-
-<div class="skill-category">
-<h3>Molecular Biology</h3>
-<ul>
-<li>DNA / RNA Extraction</li>
-<li>PCR Techniques</li>
-<li>Gel Electrophoresis</li>
-<li>Molecular Diagnostics</li>
-</ul>
-</div>
-
-<div class="skill-category">
-<h3>Bioinformatics & Data</h3>
-<ul>
-<li>Bioinformatics Analysis</li>
-<li>Research Data Interpretation</li>
-<li>Scientific Report Writing</li>
-<li>Research Publication Preparation</li>
-</ul>
-</div>
-
-<div class="skill-category">
-<h3>Laboratory & Industrial</h3>
-<ul>
-<li>Clinical Diagnostic Testing</li>
-<li>Industrial Microbial Testing</li>
-<li>Laboratory Quality Control</li>
-<li>Biotechnology Product Development</li>
-</ul>
-</div>
-
-<div class="skill-category">
-<h3>Professional Skills</h3>
-<ul>
-<li>Scientific Communication</li>
-<li>Public Speaking</li>
-<li>Leadership & Teamwork</li>
-<li>Project Management</li>
-</ul>
-</div>
-
-</div>
-
-</div>
+<!-- CERTIFICATES -->
+<section id="certificates">
+    <h2>Certificates</h2>
+    <div class="card-container">
+        <div class="card">Punjab Science Congress</div>
+        <div class="card">DBT-CTEP Participation</div>
+        <div class="card">Excel Workshop</div>
     </div>
-<div class="popup" id="popup-lysosome">
-<div class="close">&times;</div>
+</section>
 
-<h2>Certificates & Academic Credentials</h2>
+<!-- CONTACT -->
+<section id="contact">
+    <h2>Contact</h2>
+    <p>Email: yourmail@gmail.com</p>
+    <p>LinkedIn: yourlink</p>
+</section>
 
-<div class="certificate-gallery" id="certificateGallery"></div>
+<footer>
+    <p>© 2026 Chandhana</p>
+</footer>
 
-</div>
-
-<script>
-const intro = document.getElementById('intro');
-const main = document.getElementById('main');
-const video = document.getElementById('bgVideo');
-
-let initialized = false;
-function showMain() {
-    if (initialized) return;
-    initialized = true;
-    intro.style.display = 'none';
-    main.style.display = 'block';
-    initParticles();
-}
-
-video.addEventListener('ended', showMain);
-setTimeout(showMain, 8000);
-
-// hotspot & popup logic
-document.querySelectorAll('.hotspot').forEach(h => {
-    h.addEventListener('click', () => {
-        const popup = document.getElementById('popup-' + h.dataset.target);
-        if (popup) popup.classList.add('active');
-    });
-});
-
-document.querySelectorAll('.popup .close').forEach(btn => {
-    btn.addEventListener('click', e => {
-        e.target.closest('.popup').classList.remove('active');
-    });
-});
-
-function initParticles() {
-    const c = document.getElementById('particles');
-    const ctx = c.getContext('2d');
-    const ps = [];
-
-    function resize() {
-        c.width = window.innerWidth;
-        c.height = window.innerHeight;
-    }
-
-    function create() {
-        ps.push({
-            x: Math.random() * c.width,
-            y: c.height + 10,
-            size: Math.random() * 2 + 1,
-            speed: Math.random() * 0.5 + 0.2
-        });
-    }
-
-    function anim() {
-        ctx.clearRect(0, 0, c.width, c.height);
-        ps.forEach((p, i) => {
-            p.y -= p.speed;
-            ctx.fillStyle = 'rgba(80,200,255,0.2)';
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fill();
-            if (p.y < -5) ps.splice(i, 1);
-        });
-        if (Math.random() < 0.3) create();
-        requestAnimationFrame(anim);
-    }
-
-    resize();
-    anim();
-    window.addEventListener('resize', resize);
-}
-/* AUTO LOAD CERTIFICATES */
-
-const gallery = document.getElementById("certificateGallery");
-
-for(let i=1;i<=49;i++){
-
-let number = String(i).padStart(3,"0");
-
-let img=document.createElement("img");
-
-img.src="certificates/cert"+number+".jpeg";
-
-img.addEventListener("click",()=>{
-
-const viewer=document.createElement("div");
-viewer.className="fullscreen-view";
-
-const full=document.createElement("img");
-full.src=img.src;
-
-viewer.appendChild(full);
-
-viewer.onclick=()=>viewer.remove();
-
-document.body.appendChild(viewer);
-
-});
-
-gallery.appendChild(img);
-
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>
