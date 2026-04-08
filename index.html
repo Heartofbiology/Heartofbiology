@@ -1,85 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Chandhana Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kavin Kumar | Portfolio</title>
+
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<div id="particles-js"></div>
+
 <!-- NAVBAR -->
 <nav>
-    <h2>Chandhana</h2>
-    <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#certificates">Certificates</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
+  <h2>Kavin Kumar</h2>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#certificates">Certificates</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <button onclick="toggleTheme()">🌙</button>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-    <h1>Hi, I'm Chandhana 👋</h1>
-    <p>Biotechnology Student | Research Enthusiast</p>
-</section>
+<header class="hero">
+  <h1>Hi, I'm <span>Kavin Kumar</span></h1>
+  <h2 id="typing"></h2>
+
+  <a href="CV.pdf" download>
+    <button>📄 Download CV</button>
+  </a>
+</header>
 
 <!-- ABOUT -->
-<section id="about">
-    <h2>About Me</h2>
-    <p>
-        I am a biotechnology student passionate about microbiology, research, and innovation.
-        I have experience in scientific projects, data analysis, and laboratory techniques.
-    </p>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-    <h2>Skills</h2>
-    <div class="card-container">
-        <div class="card">Microbiology</div>
-        <div class="card">Excel & Data Analysis</div>
-        <div class="card">Research Writing</div>
-        <div class="card">Lab Techniques</div>
-    </div>
+<section id="about" class="card">
+  <h2>About Me</h2>
+  <p>
+    M.Sc Microbiology student with expertise in clinical microbiology,
+    bioinformatics, and sustainable biotechnology.
+  </p>
 </section>
 
 <!-- PROJECTS -->
 <section id="projects">
-    <h2>Projects</h2>
-    <div class="card-container">
-        <div class="card">
-            Bio-efficacy of Neem Extract Against Bihar Hairy Caterpillar
-        </div>
-        <div class="card">
-            Soil Bioactivity Analyzer using Respiration Pattern
-        </div>
+  <h2>Projects</h2>
+
+  <div class="grid">
+    <div class="project-card">
+      <h3>Soil Biological Activity Analyzer</h3>
+      <p>Soil fertility using microbial respiration.</p>
     </div>
+
+    <div class="project-card">
+      <h3>AI NPK Testing Kit</h3>
+      <p>Real-time nutrient analysis using AI.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research" class="card">
+  <h2>Research Publications</h2>
+
+  <ul>
+    <li>
+      Herbal Antibacterial Ointment  
+      <br>DOI: 10.1234/abc123
+    </li>
+
+    <li>
+      Tridax Wound Healing Study  
+      <br>DOI: 10.5678/xyz456
+    </li>
+
+    <li>
+      Spirulina Media Research  
+      <br>DOI: 10.9101/pqr789
+    </li>
+  </ul>
 </section>
 
 <!-- CERTIFICATES -->
 <section id="certificates">
-    <h2>Certificates</h2>
-    <div class="card-container">
-        <div class="card">Punjab Science Congress</div>
-        <div class="card">DBT-CTEP Participation</div>
-        <div class="card">Excel Workshop</div>
-    </div>
+  <h2>Certificates</h2>
+
+  <div class="gallery">
+    <img src="cert1.jpg">
+    <img src="cert2.jpg">
+    <img src="cert3.jpg">
+  </div>
 </section>
+
+<!-- CHATBOT -->
+<div id="chatbot">
+  <div id="chat-header">💬 Ask Me</div>
+  <div id="chat-body"></div>
+  <input type="text" id="chat-input" placeholder="Ask something...">
+</div>
 
 <!-- CONTACT -->
-<section id="contact">
-    <h2>Contact</h2>
-    <p>Email: yourmail@gmail.com</p>
-    <p>LinkedIn: yourlink</p>
+<section id="contact" class="card">
+  <h2>Contact</h2>
+  <p>Email: heartofbiology22@gmail.com</p>
 </section>
 
-<footer>
-    <p>© 2026 Chandhana</p>
-</footer>
-
+<script src="particles.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
